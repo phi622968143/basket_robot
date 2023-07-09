@@ -7,7 +7,7 @@ Servo myservo;
 void setup(){
    myservo.attach(9);//接腳
 }
-
+//一次就好
 void loop(){
    //sensor=analogRead(A0);
    myservo.write(150);// 轉到60度
