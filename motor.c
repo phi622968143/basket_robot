@@ -14,6 +14,4 @@ void loop(){
    delay(15);
    myservo.write(0);//轉回去
    delay(15);
-   myservo.write(150);
-   delay(15);
 }
