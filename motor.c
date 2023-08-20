@@ -3,7 +3,7 @@ Servo myservo;
 int trigPin = 11;    // 超音波感測器 Trig腳接 Arduino pin 11
 int echoPin = 12;    //超音波感測器 Echo 腳接 Arduino pin 12
 int speakerpin = 7;  //蜂鳴器 + 腳接 Arduino pin 7
-long duration, cm ;  //宣告計算距離時，需要用到的兩個實數
+long duration, d ;  //宣告計算距離時，需要用到的兩個實數
 
 
 //int sensor=0;
@@ -24,18 +24,21 @@ void loop()
   digitalWrite(trigPin, LOW);
   pinMode(echoPin, INPUT);
   duration = pulseIn(echoPin, HIGH);
-  cm = (duration / 2) / 29.1;
+  d = (duration / 2) / 29.1;
 
+  Serial.print(d);
   Serial.println("cm");
-  Serial.print(cm);
-
- 
   
+  int pos;
+  for (pos = 0; pos <= 150; pos += 15) { // goes from 0 degrees to 180 degrees
+    // in steps of 1 degree
+    myservo.write(pos);              // tell servo to go to position in variable 'pos'
+    delay((1/d)*100);                       // waits depend on distance
+  }
+  for (pos = 90; pos >= 150; pos -=10) { // goes from 0 degrees to 180 degrees
+    // in steps of 1 degree
+    myservo.write(pos);              // tell servo to go to position in variable 'pos'
+    delay(100);                       // waits depend on distance
+  }
 
-  //sensor=analogRead(A0);
-   myservo.write(0);// 轉到60度
-   delay(6000);
-   analogWrite(9 , cm*10);
-   myservo.write(60);//轉回去
-   delay(1000);
 }
